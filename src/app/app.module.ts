@@ -1,14 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgFloatingLabelModule } from '../../projects/ng-floating-label/src/lib/ng-floating-label.module';
 
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    NgFloatingLabelModule
   ],
   providers: [],
   bootstrap: [AppComponent]

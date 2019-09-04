@@ -124,6 +124,41 @@
           }
         }
       }
+    },
+    "ng-floating-label": {
+      "projectType": "library",
+      "root": "projects/ng-floating-label",
+      "sourceRoot": "projects/ng-floating-label/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ng-floating-label/tsconfig.lib.json",
+            "project": "projects/ng-floating-label/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-floating-label/src/test.ts",
+            "tsConfig": "projects/ng-floating-label/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-floating-label/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-floating-label/tsconfig.lib.json",
+              "projects/ng-floating-label/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "angular-floating-label"
 }

@@ -17,7 +17,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ng-floating-label": [
+        "dist/ng-floating-label"
+      ],
+      "ng-floating-label/*": [
+        "dist/ng-floating-label/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
