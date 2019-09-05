@@ -26,9 +26,10 @@ export class NgFloatingLabelComponent implements OnInit {
     const attributes = this.elementRef.nativeElement.attributes;
     const inputAttributes = this.inputElementRef.nativeElement.attributes;
 
-    Array.from(attributes).forEach(attribute => {
+    Array.from(attributes).forEach((attribute: any) => {
       if (attribute.name !== 'ngModel' && !inputAttributes.getNamedItemNS(attribute.namespaceURI, attribute.name)) {
         this.inputElementRef.nativeElement.setAttributeNS(attribute.namespaceURI, attribute.name, attribute.value);
+        this.elementRef.nativeElement.removeAttributeNS(attribute.namespaceURI, attribute.name, attribute.value);
       }
     });
   }
