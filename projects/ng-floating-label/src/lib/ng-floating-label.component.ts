@@ -5,18 +5,37 @@ import { NgModel } from '@angular/forms';
   selector: 'ng-floating-label',
   template: `
     <ng-container>
-      <input
-        [(ngModel)]="ngModel"
-      />
+      <div>
+        <input
+          [(ngModel)]="ngModel"
+          required
+        />
+        <span [ngClass]="{'float': inputElementRef.nativeElement.value.length > 0}">{{ placeholder }}</span>
+      </div>
     </ng-container>
   `,
-  styles: []
+  styles: [`
+    div {
+      position: relative;
+    }
+    span {
+      position: absolute;
+      top: 25%;
+      left: 1%;
+    }
+    .float {
+      top: 0%;
+      font-size: 8px;
+    }
+  `]
 })
 export class NgFloatingLabelComponent implements OnInit {
 
   private elementRef: ElementRef;
 
   @ViewChild(NgModel, { static: true, read: ElementRef }) inputElementRef: ElementRef;
+
+  public placeholder: string = '';
 
   constructor(element: ElementRef) { 
     this.elementRef = element;
@@ -27,11 +46,15 @@ export class NgFloatingLabelComponent implements OnInit {
     const inputAttributes = this.inputElementRef.nativeElement.attributes;
 
     Array.from(attributes).forEach((attribute: any) => {
-      if (attribute.name !== 'ngModel' && !inputAttributes.getNamedItemNS(attribute.namespaceURI, attribute.name)) {
+
+      if (attribute.name === 'placeholder') {
+        this.placeholder = attribute.value;
+      }
+
+      if (attribute.name !== 'placeholder' && !inputAttributes.getNamedItemNS(attribute.namespaceURI, attribute.name)) {
         this.inputElementRef.nativeElement.setAttributeNS(attribute.namespaceURI, attribute.name, attribute.value);
         this.elementRef.nativeElement.removeAttributeNS(attribute.namespaceURI, attribute.name, attribute.value);
       }
     });
   }
-
 }
