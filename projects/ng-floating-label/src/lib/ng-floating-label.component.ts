@@ -9,8 +9,12 @@ import { NgModel } from '@angular/forms';
         <input
           [(ngModel)]="ngModel"
           required
+          [ngClass]="{'input-float': inputElementRef.nativeElement.value.length > 0}"
         />
-        <span [ngClass]="{'float': inputElementRef.nativeElement.value.length > 0}">{{ placeholder }}</span>
+        <span 
+          [ngClass]="{'span-float': inputElementRef.nativeElement.value.length > 0}"
+          [style.paddingLeft]="getLabelPadding()"
+        >{{ placeholder }}</span>
       </div>
     </ng-container>
   `,
@@ -21,11 +25,20 @@ import { NgModel } from '@angular/forms';
     span {
       position: absolute;
       top: 25%;
-      left: 1%;
+      transition: 0.25s ease-in-out;
+      color: #98a6ad;
     }
-    .float {
-      top: 0%;
-      font-size: 8px;
+    .span-float {
+      top: 5px;
+      font-size: 12.5px;
+    }
+    input {
+      height: 50px;
+      font-size: 20px;
+    }
+    .input-float {
+      padding-top: 25px;
+      padding-bottom: 5px;
     }
   `]
 })
@@ -56,5 +69,11 @@ export class NgFloatingLabelComponent implements OnInit {
         this.elementRef.nativeElement.removeAttributeNS(attribute.namespaceURI, attribute.name, attribute.value);
       }
     });
+  }
+
+  getLabelPadding() {
+    const styles = window.getComputedStyle(this.inputElementRef.nativeElement);
+    const padding = styles.getPropertyValue('padding-left');
+    return padding;
   }
 }
