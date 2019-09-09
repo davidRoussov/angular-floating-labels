@@ -1,7 +1,7 @@
 import { ViewChild, ElementRef, Component, OnInit } from '@angular/core';
 import { NgModel } from '@angular/forms';
 
-const FLOATING_LABEL_FONT_SIZE_RATIO: Readonly<number> = 0.6;
+const FLOATING_LABEL_FONT_SIZE_RATIO: Readonly<number> = 0.8;
 
 @Component({
   selector: 'ng-floating-label',
@@ -33,6 +33,7 @@ const FLOATING_LABEL_FONT_SIZE_RATIO: Readonly<number> = 0.6;
     }
     input {
       min-height: 50px;
+      display: block;
     }
     .input-float {
       padding-bottom: 5px;
@@ -94,7 +95,6 @@ export class NgFloatingLabelComponent implements OnInit {
     } else {
       const fontSize = Number(styles.getPropertyValue('font-size').split('px').join(''));
       const labelTop = `calc(50% - ${3 * fontSize / 4}px)`;
-      console.log('labelTop', labelTop);
 
       return labelTop;
     }
