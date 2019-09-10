@@ -2,6 +2,7 @@ import { ViewChild, ElementRef, Component, OnInit } from '@angular/core';
 import { NgModel } from '@angular/forms';
 
 const FLOATING_LABEL_FONT_SIZE_RATIO: Readonly<number> = 0.8;
+const FLOATING_LABEL_PADDING: Readonly<number> = 5;
 
 @Component({
   selector: 'ng-floating-label',
@@ -9,15 +10,15 @@ const FLOATING_LABEL_FONT_SIZE_RATIO: Readonly<number> = 0.8;
     <div>
       <input
         [(ngModel)]="ngModel"
-        [ngClass]="{'input-float': inputElementRef.nativeElement.value.length > 0}"
+        [style.paddingTop]="getInputPaddingBottom()"
         [style.paddingTop]="getInputPaddingTop()"
       />
       <span 
-        [ngClass]="{'span-float': inputElementRef.nativeElement.value.length > 0}"
         [style.fontSize]="getLabelFontSize()"
         [style.paddingLeft]="getLabelPadding()"
         [style.top]="getLabelTop()"
-      >{{ placeholder }}</span>
+        [style.color]="getColor()"
+      >{{ labelText }}</span>
     </div>
   `,
   styles: [`
@@ -27,20 +28,14 @@ const FLOATING_LABEL_FONT_SIZE_RATIO: Readonly<number> = 0.8;
     span {
       position: absolute;
       transition: 0.25s ease-in-out;
-      color: #98a6ad;
       -webkit-user-select: none;
          -moz-user-select: none;
               user-select: none; 
       pointer-events: none;
     }
-    .span-float {
-    }
     input {
       min-height: 50px;
       display: block;
-    }
-    .input-float {
-      padding-bottom: 5px;
     }
   `]
 })
@@ -50,7 +45,7 @@ export class NgFloatingLabelComponent implements OnInit {
 
   @ViewChild(NgModel, { static: true, read: ElementRef }) inputElementRef: ElementRef;
 
-  public placeholder: string = '';
+  public labelText: string = '';
 
   constructor(element: ElementRef) { 
     this.elementRef = element;
@@ -63,7 +58,7 @@ export class NgFloatingLabelComponent implements OnInit {
     Array.from(attributes).forEach((attribute: any) => {
 
       if (attribute.name === 'placeholder') {
-        this.placeholder = attribute.value;
+        this.labelText = attribute.value;
       }
 
       if (attribute.name !== 'placeholder' && !inputAttributes.getNamedItemNS(attribute.namespaceURI, attribute.name)) {
@@ -95,7 +90,7 @@ export class NgFloatingLabelComponent implements OnInit {
     const styles = window.getComputedStyle(this.inputElementRef.nativeElement);
     
     if (this.inputElementRef.nativeElement.value.length > 0) {
-      return '5px';
+      return `${FLOATING_LABEL_PADDING}px`;
     } else {
       const fontSize = Number(styles.getPropertyValue('font-size').split('px').join(''));
       const labelTop = `calc(50% - ${3 * fontSize / 4}px)`;
@@ -110,11 +105,25 @@ export class NgFloatingLabelComponent implements OnInit {
     if (this.inputElementRef.nativeElement.value.length > 0) {
       const height = Number(styles.getPropertyValue('height').split('px').join(''));
       const fontSize = Number(styles.getPropertyValue('font-size').split('px').join(''));
-      const paddingTop = height - 5 - fontSize;
+      const paddingTop = height - FLOATING_LABEL_PADDING - fontSize;
 
       return `${paddingTop}px`;
     } else {
       return 'inherit';
     }
+  }
+
+  getInputPaddingBottom() {
+    const styles = window.getComputedStyle(this.inputElementRef.nativeElement);
+
+    if (this.inputElementRef.nativeElement.value.length > 0) {
+      return `${FLOATING_LABEL_PADDING}px`;
+    } else {
+      return 'inherit';
+    }
+  }
+
+  getColor() {
+    return window.getComputedStyle(this.inputElementRef.nativeElement, '::placeholder').color;
   }
 }
