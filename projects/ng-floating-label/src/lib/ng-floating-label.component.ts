@@ -28,6 +28,10 @@ const FLOATING_LABEL_FONT_SIZE_RATIO: Readonly<number> = 0.8;
       position: absolute;
       transition: 0.25s ease-in-out;
       color: #98a6ad;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+              user-select: none; 
+      pointer-events: none;
     }
     .span-float {
     }
