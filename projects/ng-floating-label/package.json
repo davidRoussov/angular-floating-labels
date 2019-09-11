@@ -1,6 +1,13 @@
 {
   "name": "ng-floating-label",
-  "version": "0.0.1",
+  "description": "An HTML input tag wrapped in an Angular component where the placeholder turns into a label above the input text",
+  "keywords": ["Angular", "Input", "Bootstrap"],
+  "homepage": "https://github.com/davidRoussov/angular-floating-labels",
+  "bugs": "https://github.com/davidRoussov/angular-floating-labels/issues",
+  "license": "MIT",
+  "author": "David Roussov",
+  "repository": "https://github.com/davidRoussov/angular-floating-labels",
+  "version": "1.0.0",
   "peerDependencies": {
     "@angular/common": "^8.2.0",
     "@angular/core": "^8.2.0"
