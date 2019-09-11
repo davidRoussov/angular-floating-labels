@@ -45,6 +45,7 @@ export class NgFloatingLabelComponent implements OnInit {
   @ViewChild(NgModel, { static: true, read: ElementRef }) inputElementRef: ElementRef;
 
   public labelText: string = '';
+  public ngModel;
 
   constructor(element: ElementRef) { 
     this.elementRef = element;
