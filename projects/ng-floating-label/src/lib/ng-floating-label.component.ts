@@ -17,7 +17,7 @@ const FLOATING_LABEL_PADDING: Readonly<number> = 5;
         [style.fontSize]="getLabelFontSize()"
         [style.paddingLeft]="getLabelPadding()"
         [style.top]="getLabelTop()"
-        [style.color]="getColor()"
+        [style.color]="getLabelColor()"
       >{{ labelText }}</span>
     </div>
   `,
@@ -34,8 +34,7 @@ const FLOATING_LABEL_PADDING: Readonly<number> = 5;
       pointer-events: none;
     }
     input {
-      min-height: 50px;
-      display: block;
+      min-height: 3em;
     }
   `]
 })
@@ -123,7 +122,7 @@ export class NgFloatingLabelComponent implements OnInit {
     }
   }
 
-  getColor() {
+  getLabelColor() {
     return window.getComputedStyle(this.inputElementRef.nativeElement, '::placeholder').color;
   }
 }
