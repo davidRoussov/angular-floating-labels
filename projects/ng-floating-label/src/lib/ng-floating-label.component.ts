@@ -27,6 +27,7 @@ const FLOATING_LABEL_PADDING: Readonly<number> = 5;
     }
     span {
       position: absolute;
+      left: 0;
       transition: 0.25s ease-in-out;
       -webkit-user-select: none;
          -moz-user-select: none;
